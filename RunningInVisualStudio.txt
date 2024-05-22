@@ -1,0 +1,46 @@
+Reference: https://www.libsdl.org/
+How to setup Picture Puzzle for building in Visual Studio.
+------------------------------------------------------------------------------
+0) Make an empty project and copy all files in it 
+Add .h and .c files to the project
+
+1) Download and unzip the following in a folder of your convenience.
+------------------------------------------------------------------------------
+These are lib files and include files
+https://github.com/libsdl-org/SDL/releases/download/release-2.28.3/SDL2-devel-2.28.3-VC.zip
+
+2) Download and install SDL2.DLL 
+---------------------------------------
+urls
+(32 bit)
+https://github.com/libsdl-org/SDL/releases/download/release-2.28.3/SDL2-2.28.3-win32-x86.zip
+
+(64 bit)
+https://github.com/libsdl-org/SDL/releases/download/release-2.28.3/SDL2-2.28.3-win32-x64.zip
+
+Copy SDL2.DLL in your windows System32 folder e.g: C:\WINDOWS\SYSTEM32 
+
+3) Fix dependencies in project.
+-----------------------------------------------------------------
+Open your project in visual studio:
+
+In project properties
+C/C++:
+General:
+additional include directories:
+Type in path of your SDL2 library include folder e.g: D:\Libs\SDL2-2.0.3\include
+
+Linker:
+General:
+additional library directories:
+Type in path of your SDL2 library lib folder e.g: D:\Libs\SDL2-2.0.3\lib\x86
+
+
+Linker:
+input: 
+Type in the following
+SDL2.lib
+SDL2main.lib
+
+Also you need to include _CRT_SECURE_NO_WARNINGS preprocessor definition
+Refer here for how to set that: https://stackoverflow.com/questions/22450423/how-to-use-crt-secure-no-warnings
