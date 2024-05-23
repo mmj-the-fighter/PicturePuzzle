@@ -8,7 +8,6 @@
 class JigsawSpriteManager
 {
 private:
-	int curSelection;
 	int curSelectionId;
 	std::vector<JigsawSprite*> spriteRenderList;
 	std::vector<JigsawSprite*> spriteList;
