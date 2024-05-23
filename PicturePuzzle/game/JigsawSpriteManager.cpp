@@ -35,16 +35,6 @@ void JigsawSpriteManager::SetGameWorldLimits(int startX, int startY, int endX, i
 	gameWorldEndY = endY;
 }
 
-void JigsawSpriteManager::BreakConnections()
-{
-	for (std::vector<JigsawSprite*>::iterator it = spriteList.begin();
-		it != spriteList.end();
-		++it) {
-		JigsawSprite* spr = *it;
-		spr->DisconnectWithNeighbours();
-	}
-}
-
 void JigsawSpriteManager::Load(const char* filename, int rows, int cols)
 {
 	UnLoad();
@@ -93,6 +83,16 @@ void JigsawSpriteManager::Load(const char* filename, int rows, int cols)
 	RandomizePositions();
 	RandomizeLayers();
 	spriteCount = spriteRenderList.size();
+}
+
+void JigsawSpriteManager::BreakConnections()
+{
+	for (std::vector<JigsawSprite*>::iterator it = spriteList.begin();
+		it != spriteList.end();
+		++it) {
+		JigsawSprite* spr = *it;
+		spr->DisconnectWithNeighbours();
+	}
 }
 
 void JigsawSpriteManager::UnLoad()
@@ -147,7 +147,6 @@ void JigsawSpriteManager::dbg_PrintLayers()
 
 void JigsawSpriteManager::OnLeftMouseButtonDown(int x, int y)
 {
-	curSelection = -1;
 	curSelectionId = -1;
 	int i = spriteRenderList.size() - 1;
 	for (std::vector<JigsawSprite*>::reverse_iterator it = spriteRenderList.rbegin();
@@ -157,8 +156,8 @@ void JigsawSpriteManager::OnLeftMouseButtonDown(int x, int y)
 		JigsawSprite* spr = *it;
 		if (spr->IsMouseOver(x, y)) 
 		{
-			curSelection = i;
 			spr->RegisterSelection(x, y);
+			curSelectionId = spr->id;
 			curClickX = x;
 			curClickY = y;
 			prevClickX = curClickX;
@@ -169,12 +168,9 @@ void JigsawSpriteManager::OnLeftMouseButtonDown(int x, int y)
 	}
 
 
-	if (curSelection >= 0){
-		curSelectionId = spriteRenderList[curSelection]->id;
+	if (curSelectionId >= 0){
 		int n = spriteRenderList.size();
-		
-		int selectedLayer = spriteRenderList[curSelection]->layer;
-		
+		int selectedLayer = spriteList[curSelectionId]->layer;
 		int topLayer = spriteRenderList[0]->layer;
 		for (int i = 1; i < n; i++) {
 			int ly = spriteRenderList[i]->layer;
@@ -183,7 +179,7 @@ void JigsawSpriteManager::OnLeftMouseButtonDown(int x, int y)
 			}
 		}
 		printf("top %d \n", topLayer);
-		if (spriteRenderList[curSelection]->layer != topLayer)
+		if (selectedLayer != topLayer)
 		{
 			for (int i = 0; i < n; i++) {
 				int layer = spriteRenderList[i]->layer;
@@ -206,7 +202,29 @@ void JigsawSpriteManager::OnLeftMouseButtonUp(int x, int y)
 	{
 		AttachAdjacentJigsawSetIfAny(curSelectionId);
 		spriteList[curSelectionId]->UnRegisterSelection();
-		std::sort(spriteRenderList.begin(), spriteRenderList.end(), compareByLayer);
+		int n = spriteRenderList.size();
+		int selectedLayer = spriteList[curSelectionId]->layer;
+		int topLayer = spriteRenderList[0]->layer;
+		for (int i = 1; i < n; i++) {
+			int ly = spriteRenderList[i]->layer;
+			if (ly > topLayer){
+				topLayer = ly;
+			}
+		}
+		//printf("top %d \n", topLayer);
+		if (selectedLayer != topLayer)
+		{
+			for (int i = 0; i < n; i++) {
+				int layer = spriteRenderList[i]->layer;
+				if (layer == selectedLayer){
+					spriteRenderList[i]->layer = topLayer;
+				}
+				else if (layer > selectedLayer){
+					spriteRenderList[i]->layer -= 1;
+				}
+			}
+			std::sort(spriteRenderList.begin(), spriteRenderList.end(), compareByLayer);
+		}
 	}
 	curSelectionId = -1;
 	//printf("mouse up");
