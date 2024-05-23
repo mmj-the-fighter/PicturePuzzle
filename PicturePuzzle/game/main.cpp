@@ -43,7 +43,7 @@ int input(SDL_Event* e)
 		case SDL_SCANCODE_DOWN:
 			break;
 		case SDL_SCANCODE_SPACE:
-			//game->Restart();
+			game->Restart();
 			break;
 		}
 	}
