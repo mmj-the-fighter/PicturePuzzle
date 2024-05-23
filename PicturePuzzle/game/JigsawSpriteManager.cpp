@@ -35,6 +35,16 @@ void JigsawSpriteManager::SetGameWorldLimits(int startX, int startY, int endX, i
 	gameWorldEndY = endY;
 }
 
+void JigsawSpriteManager::BreakConnections()
+{
+	for (std::vector<JigsawSprite*>::iterator it = spriteList.begin();
+		it != spriteList.end();
+		++it) {
+		JigsawSprite* spr = *it;
+		spr->DisconnectWithNeighbours();
+	}
+}
+
 void JigsawSpriteManager::Load(const char* filename, int rows, int cols)
 {
 	UnLoad();
