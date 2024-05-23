@@ -20,7 +20,8 @@ void Game::Init()
 	//create tile set
 	//randomize tile locations
 	spriteManager->SetGameWorldLimits(0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
-	spriteManager->Load("gameres/roadgrid.png", 4, 4);
+	//spriteManager->Load("gameres/roadgrid.png", 4, 4);
+	spriteManager->Load("gameres/road.png", 3, 4);
 }
 
 void Game::Restart()
