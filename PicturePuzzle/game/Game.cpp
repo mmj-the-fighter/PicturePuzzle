@@ -29,7 +29,9 @@ void Game::Restart()
 	//gameOver = false;
 	//randomize tile locations
 	//spriteManager->RandomizePositions();
-
+	spriteManager->BreakConnections();
+	spriteManager->RandomizePositions();
+	spriteManager->RandomizeLayers();
 }
 
 void Game::OnLeftMouseButtonDown(int x, int y)
