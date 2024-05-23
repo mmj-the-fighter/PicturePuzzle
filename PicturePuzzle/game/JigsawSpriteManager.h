@@ -36,6 +36,7 @@ public:
 	void Load(const char* filename, int rows, int cols);
 	void RandomizePositions();
 	void RandomizeLayers();
+	void BreakConnections();
 	void Display();
 	void OnLeftMouseButtonDown(int x, int y);
 	void OnLeftMouseButtonUp(int x, int y);
