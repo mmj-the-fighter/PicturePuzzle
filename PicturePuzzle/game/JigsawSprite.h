@@ -28,8 +28,8 @@ public:
 	bool isVisited;
 public:
 	JigsawSprite();
-	void Set(int aid, int arow, int acol, int alayer, int ax, int ay, int awidth, int aheight, swr_image* aimage);
 	void DisconnectWithNeighbours();
+	void Set(int aid, int arow, int acol, int alayer, int ax, int ay, int awidth, int aheight, swr_image* aimage);
 	bool IsMouseOver(int mx, int my);
 	void RegisterSelection(int mx, int my);
 	void UnRegisterSelection();

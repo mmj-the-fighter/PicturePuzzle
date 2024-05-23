@@ -1,24 +1,21 @@
 #include "../swr/swr_utils.h"
+#include "../swr/swr_rasterizer.h"
 #include "Game.h"
 
-Game::Game() :gameOver(false), lmbDown(false), rmbDown(false)
+Game::Game()
 {
-	//initialize random number
 	swr_init_random();
 	spriteManager = new JigsawSpriteManager();
 }
 
 Game::~Game()
 {
-//deallocate if anything
 	delete spriteManager;
 }
 
 void Game::Init()
 {
-	gameOver = false;
-	//create tile set
-	//randomize tile locations
+	SetGameState(SHOW_PIC);
 	spriteManager->SetGameWorldLimits(0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 	//spriteManager->Load("gameres/roadgrid.png", 4, 4);
 	spriteManager->Load("gameres/road.png", 3, 4);
@@ -27,12 +24,10 @@ void Game::Init()
 void Game::Restart()
 {
 	//TODO:
-	//gameOver = false;
-	//randomize tile locations
-	//spriteManager->RandomizePositions();
 	spriteManager->BreakConnections();
 	spriteManager->RandomizePositions();
 	spriteManager->RandomizeLayers();
+	SetGameState(SHOW_PIC);
 }
 
 void Game::OnLeftMouseButtonDown(int x, int y)
@@ -63,8 +58,60 @@ void Game::OnMouseMoved(int x, int y)
 	spriteManager->OnMouseMoved(x, y);
 }
 
+void Game::SetGameState(GameState state)
+{
+	if (state == SHOW_PIC){
+		StartTimer();
+	}
+	gameState = state;
+}
+
+
+void Game::StartTimer()
+{
+	startTime = clock();
+}
+
+double Game::GetElapsedTime()
+{
+	endTime = clock();
+	return static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
+}
+
+void Game::Update()
+{
+	switch (gameState)
+	{
+	case SHOW_PIC:
+		if (GetElapsedTime() > 6.0){
+			SetGameState(SHOW_GRID);
+		}
+		break;
+	case SHOW_GRID:
+		if (spriteManager->IsAllSpritesAreInSameLayer()){
+			SetGameState(SHOW_GAME_WON_MESSAGE);
+		}
+		break;
+	case SHOW_GAME_WON_MESSAGE:
+		break;
+	}
+
+}
+
 
 void Game::Display()
 {
-	spriteManager->Display();
+	switch (gameState)
+	{
+	case SHOW_PIC:
+		spriteManager->DisplaySourceImage();
+		break;
+	case SHOW_GRID:
+		spriteManager->Display();
+		break;
+	case SHOW_GAME_WON_MESSAGE:
+		rasterizer_draw_text(GAME_RESOLUTION_X / 2 - 100, GAME_RESOLUTION_Y/2-100, "You solved the puzzle! [Press Space]");
+		break;
+	}
+	
 }

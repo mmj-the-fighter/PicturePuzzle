@@ -12,6 +12,7 @@ Game *game;
 
 void display(swr_sdl_context* ctx)
 {
+	game->Update();
 	rasterizer_clear();
 	game->Display();
 	//Frame stats
@@ -33,14 +34,6 @@ int input(SDL_Event* e)
 			return 1;
 		case SDL_SCANCODE_F12:
 			swr_save_screenshot(g_ctx);
-			break;
-		case SDL_SCANCODE_LEFT:
-			break;
-		case SDL_SCANCODE_RIGHT:
-			break;
-		case SDL_SCANCODE_UP:
-			break;
-		case SDL_SCANCODE_DOWN:
 			break;
 		case SDL_SCANCODE_SPACE:
 			game->Restart();

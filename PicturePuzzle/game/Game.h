@@ -1,10 +1,14 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+#include <ctime>
 #include "JigsawSpriteManager.h"
+
 
 #define GAME_RESOLUTION_X 800
 #define GAME_RESOLUTION_Y 600
+
+typedef enum GameState { SHOW_PIC, SHOW_GRID, SHOW_GAME_WON_MESSAGE};
 
 class Game
 {
@@ -13,18 +17,21 @@ public:
 	~Game();
 	void Init();
 	void Restart();
+	void Update();
 	void Display();
 	void OnLeftMouseButtonDown(int x, int y);
 	void OnLeftMouseButtonUp(int x, int y);
 	void OnRightMouseButtonDown(int x, int y);
 	void OnRightMouseButtonUp(int x, int y);
 	void OnMouseMoved(int x, int y);
-	inline bool IsGameOver(){ return gameOver; }
+	void SetGameState(GameState state);
+	void StartTimer();
+	double GetElapsedTime();
 public:
-	bool gameOver;
-	bool lmbDown;
-	bool rmbDown;
+	GameState gameState;
 	JigsawSpriteManager *spriteManager;
+	clock_t startTime, endTime;
+	double elapsedTime;
 };
 
 #endif

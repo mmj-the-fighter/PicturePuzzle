@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "../swr/swr_utils.h"
+#include "../swr/swr_rasterizer.h"
 #include "JigsawSpriteManager.h"
 
 bool compareByLayer(const JigsawSprite* s1, const JigsawSprite* s2)
@@ -131,6 +132,15 @@ void JigsawSpriteManager::Display()
 	}
 }
 
+void JigsawSpriteManager::DisplaySourceImage()
+{
+	rasterizer_copy_pixels(gameWorldStartX, 
+		gameWorldStartY, 
+		sourceImage->width, 
+		sourceImage->height, 
+		sourceImage->pixels);
+}
+
 void JigsawSpriteManager::dbg_PrintLayers()
 {
 	//Caution: Debugging with intially randomized layers might be difficult
@@ -244,8 +254,18 @@ void JigsawSpriteManager::OnMouseMoved(int x, int y)
 		spriteList[curSelectionId]->ApplyDrag(curDragX, curDragY);
 		MoveAttachedJigsawSetIfAny(curSelectionId, curDragX, curDragY);
 	}
-	
+}
 
+bool JigsawSpriteManager::IsAllSpritesAreInSameLayer()
+{
+	int n = spriteRenderList.size();
+	int firstLayer = spriteRenderList[0]->layer;
+	for (int i = 1; i < n; ++i) {
+		if (spriteRenderList[i]->layer != firstLayer){
+			return false;
+		}
+	}
+	return true;
 }
 
 void JigsawSpriteManager::RandomizePositions()
@@ -272,6 +292,8 @@ void JigsawSpriteManager::RandomizeLayers()
 	}
 	std::sort(spriteRenderList.begin(), spriteRenderList.end(), compareByLayer);
 }
+
+
 
 
 void JigsawSpriteManager::AttachAdjacentJigsawSetIfAny(int spriteId)

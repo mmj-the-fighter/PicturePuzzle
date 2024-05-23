@@ -37,6 +37,7 @@ public:
 	void RandomizeLayers();
 	void BreakConnections();
 	void Display();
+	void DisplaySourceImage();
 	void OnLeftMouseButtonDown(int x, int y);
 	void OnLeftMouseButtonUp(int x, int y);
 	void OnMouseMoved(int x, int y);
@@ -46,6 +47,7 @@ public:
 	void LinkAdjacentSpritesForASingleSprite(int spriteId);
 	void AttachAdjacentJigsawSetIfAny(int spriteId);
 	void MoveAttachedJigsawSetIfAny(int spriteId, int dragX, int dragY);
+	bool IsAllSpritesAreInSameLayer();
 	void dbg_PrintLayers();
 };
 

@@ -15,6 +15,14 @@ JigsawSprite::JigsawSprite()
 
 }
 
+void JigsawSprite::DisconnectWithNeighbours()
+{
+	hasFoundLeftNeighbour = false;
+	hasFoundRightNeighbour = false;
+	hasFoundUpNeighbour = false;
+	hasFoundDownNeighbour = false;
+}
+
 void JigsawSprite::Set(int aid, int arow, int acol, int alayer, int ax, int ay, int awidth, int aheight, swr_image *aimage)
 {
 	id = aid;
@@ -27,13 +35,6 @@ void JigsawSprite::Set(int aid, int arow, int acol, int alayer, int ax, int ay, 
 	height = aheight;
 	image = aimage;
 
-}
-void JigsawSprite::DisconnectWithNeighbours()
-{
-	hasFoundLeftNeighbour = false;
-	hasFoundRightNeighbour = false;
-	hasFoundUpNeighbour = false;
-	hasFoundDownNeighbour = false;
 }
 
 bool JigsawSprite::IsMouseOver(int mx, int my)
