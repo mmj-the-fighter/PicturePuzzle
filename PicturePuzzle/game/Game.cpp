@@ -4,6 +4,7 @@
 
 Game::Game()
 {
+	showPicDelay = 0;
 	swr_init_random();
 	spriteManager = new JigsawSpriteManager();
 }
@@ -62,6 +63,7 @@ void Game::SetGameState(GameState state)
 {
 	if (state == SHOW_PIC){
 		StartTimer();
+		showPicDelay = 4.0;
 	}
 	gameState = state;
 }
@@ -83,7 +85,7 @@ void Game::Update()
 	switch (gameState)
 	{
 	case SHOW_PIC:
-		if (GetElapsedTime() > 6.0){
+		if (GetElapsedTime() > showPicDelay){
 			SetGameState(SHOW_GRID);
 		}
 		break;

@@ -29,6 +29,7 @@ public:
 	double GetElapsedTime();
 public:
 	GameState gameState;
+	double showPicDelay;
 	JigsawSpriteManager *spriteManager;
 	clock_t startTime, endTime;
 	double elapsedTime;
