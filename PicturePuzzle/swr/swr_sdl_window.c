@@ -10,7 +10,7 @@ static Uint32 targetMSPF = (Uint32)(1000.0 / 62.0);
 
 
 int swr_sdl_create_context(
-	char *windowTitle,
+	const char *windowTitle,
 	int resolution_x, 
 	int resolution_y,
 	const char* font_image_filename, 
