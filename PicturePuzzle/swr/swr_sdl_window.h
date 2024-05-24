@@ -11,7 +11,7 @@ extern "C" {
 
 /* create context */
 int swr_sdl_create_context(
-		char* windowTitle,
+		const char* windowTitle,
 		int resolution_x,
 		int resolution_y,
 		const char* fontimagefilename,
