@@ -36,6 +36,7 @@ public:
 	void RandomizePositions();
 	void RandomizeLayers();
 	void BreakConnections();
+	void HighlightTheCurrentSelection();
 	void Display();
 	void DisplaySourceImage();
 	void OnLeftMouseButtonDown(int x, int y);

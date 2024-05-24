@@ -1,4 +1,5 @@
 #include "../swr/swr_utils.h"
+
 #include "../swr/swr_rasterizer.h"
 #include "Game.h"
 
@@ -7,10 +8,12 @@ Game::Game()
 	showPicDelay = 0;
 	swr_init_random();
 	spriteManager = new JigsawSpriteManager();
+	gameWonImage = swr_imag_read_png_using_stb("gameres/congrats.png");
 }
 
 Game::~Game()
 {
+	swr_destroy_image(gameWonImage);
 	delete spriteManager;
 }
 
@@ -94,8 +97,8 @@ void Game::Update()
 			SetGameState(SHOW_GAME_WON_MESSAGE);
 		}
 		break;
-	case SHOW_GAME_WON_MESSAGE:
-		break;
+	//case SHOW_GAME_WON_MESSAGE:
+	//	break;
 	}
 
 }
@@ -112,7 +115,11 @@ void Game::Display()
 		spriteManager->Display();
 		break;
 	case SHOW_GAME_WON_MESSAGE:
-		rasterizer_draw_text(GAME_RESOLUTION_X / 2 - 100, GAME_RESOLUTION_Y/2-100, "You solved the puzzle! [Press Space]");
+		rasterizer_copy_pixels(GAME_RESOLUTION_X / 2 - gameWonImage->width / 2,
+			GAME_RESOLUTION_Y / 2 - gameWonImage->height / 2,
+			gameWonImage->width,
+			gameWonImage->height,
+			gameWonImage->pixels);
 		break;
 	}
 	

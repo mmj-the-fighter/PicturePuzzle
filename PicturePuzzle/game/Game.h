@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <ctime>
+#include "../swr/swr_image.h"
 #include "JigsawSpriteManager.h"
 
 
@@ -30,9 +31,9 @@ public:
 public:
 	GameState gameState;
 	double showPicDelay;
+	swr_image* gameWonImage;
 	JigsawSpriteManager *spriteManager;
 	clock_t startTime, endTime;
-	double elapsedTime;
 };
 
 #endif

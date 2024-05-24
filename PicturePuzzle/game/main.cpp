@@ -36,6 +36,7 @@ int input(SDL_Event* e)
 			swr_save_screenshot(g_ctx);
 			break;
 		case SDL_SCANCODE_SPACE:
+		case SDL_SCANCODE_F5:
 			game->Restart();
 			break;
 		}
@@ -73,7 +74,7 @@ int input(SDL_Event* e)
 
 void init() {
 	swr_sdl_set_frames_per_second(35);
-	swr_sdl_create_context("Picture Puzzle", 800, 600, "swrres/fonts/glyphs.ppm", "swrres/fonts/glyphs.csv");
+	swr_sdl_create_context("Picture Puzzle using Graphics Lab Framework", 800, 600, "swrres/fonts/glyphs.ppm", "swrres/fonts/glyphs.csv");
 	swr_sdl_set_input_handler(input);
 	swr_sdl_set_display_handler(display);
 	g_ctx = swr_sdl_get_context();

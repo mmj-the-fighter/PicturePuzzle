@@ -4,6 +4,8 @@
 #include "swr_pixel.h"
 #include "swr_sdl_window.h"
 
+#define MAX_WINDOW_TITLE_LENGTH 127
+
 static swr_sdl_context context;
 static int running = 1;
 static Uint32 targetMSPF = (Uint32)(1000.0 / 62.0);
@@ -16,7 +18,7 @@ int swr_sdl_create_context(
 	const char* font_image_filename, 
 	const char* font_properties_csv_filename)
 {
-	char wt[129];
+	char wt[MAX_WINDOW_TITLE_LENGTH+1];
 	time_t tm;
 	context.font = swr_rfont_create(font_image_filename, font_properties_csv_filename);
 	/* init context */
@@ -36,14 +38,14 @@ int swr_sdl_create_context(
 
 	/* create window */
 	/* set title first */
-	if (windowTitle == NULL || strlen(windowTitle) > 127)
+	if (windowTitle == NULL || strlen(windowTitle) > MAX_WINDOW_TITLE_LENGTH)
 	{
 		strcpy(wt, "Experiment_");
 		tm = time(NULL);
 		strcat(wt, ctime(&tm));
 	}
 	else{
-		strcpy(wt, windowTitle);
+		strcpy(wt, windowTitle, MAX_WINDOW_TITLE_LENGTH);
 	}
 	
 	context.window = SDL_CreateWindow(
