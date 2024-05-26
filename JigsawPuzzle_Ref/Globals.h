@@ -1,4 +1,5 @@
 //Copyright 2005 : Manoj M J
+//All rights reserved
 #ifndef  _GLOBALS_HEADER_
 #define  _GLOBALS_HEADER_
 #include <stdio.h>
