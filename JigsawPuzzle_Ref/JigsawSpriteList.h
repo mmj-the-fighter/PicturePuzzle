@@ -1,4 +1,5 @@
 //Copyright 2005 : Manoj M J
+//All rights reserved
 #ifndef __JIGSAWSPRITELIST_H__
 #define __JIGSAWSPRITELIST_H__
 
