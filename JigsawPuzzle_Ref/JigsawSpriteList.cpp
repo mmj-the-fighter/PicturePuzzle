@@ -1,4 +1,5 @@
 //Copyright 2005 : Manoj M J
+//All rights reserved
 #include "JigsawSpriteList.h"
 
 int JIGSAWSpriteList::m_sCurSelection = 0;
