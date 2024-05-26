@@ -1,0 +1,4 @@
+Solve the puzzle by merging the jigsaw patterns and anchoring them.
+Placing the top-left corner of a jigsaw pattern inside its anchor point is called anchoring.
+Anchor-points are shown as red spots. 
+Press F2 for re-shuffling.
