@@ -1,4 +1,5 @@
-////Copyright 2005 : Manoj M J
+//Copyright 2005 : Manoj M J
+//All rights reserved
 #pragma once
 #ifndef  _GAME_HEADER_
 #define  _GAME_HEADER_
