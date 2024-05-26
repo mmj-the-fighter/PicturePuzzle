@@ -1,4 +1,5 @@
 //Copyright 2005 : Manoj M J
+//All rights reserved
 #ifndef __JIGSAWSPRITE_H__
 #define __JIGSAWSPRITE_H__
 
